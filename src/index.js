@@ -48,20 +48,32 @@ const playlistSongs = (songs) => {
     songDiv.dataset.id = songs.id
     // console.log(songDiv)
 
-    const h4 = document.createElement('h4')
-    h4.textContent = songs.title
+    const h5 = document.createElement('h5')
+    h5.textContent = `Title: ${songs.title}`
     // console.log(h2)
     
     const pArtist = document.createElement('p')
     pArtist.classList.add('artist')
-    pArtist.textContent = songs.artist
+    pArtist.textContent = `Artist: ${songs.artist}`
     // console.log(h3)
     
     const p = document.createElement('p')
     p.classList.add('genre')
-    p.textContent = songs.genre
+    p.textContent = `Genre: ${songs.genre}`
     
-    songDiv.append(h4, pArtist, p)
+    const aTag = document.createElement('a')
+    aTag.href = songs.link
+    aTag.textContent = "View"
+
+    const likes = document.createElement('p')
+    likes.textContent = `♥️ ${songs.likes}`
+
+    const likesBtn = document.createElement('button')
+    likesBtn.dataset.id = songs.id
+    likesBtn.classList.add("like-btn")
+    likesBtn.textContent = "♥️"
+
+    songDiv.append(h5, pArtist, p, aTag, likes, likesBtn)
     songInfo.append(songDiv)
 }
 
