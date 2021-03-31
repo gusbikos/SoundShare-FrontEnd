@@ -1,27 +1,33 @@
-/* .navbar {
-    background: lightblue;
+.navbars {
+    background: paleturquoise;
     height: 50px;
     padding: 0 5%;
 }
 
-.logo {
-    text-decoration: none;
+.logo-name {
     font-weight: bold;
-    color: black;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
     font-size: 1.2em;
 } 
 
-.navbar div:nth-child(2) a {
-    padding: 0 10px;
-    text-decoration: none;
-    font-weight: bold;
+.logo-name span {
+    color: blueviolet;
 }
 
-.navbar div:nth-child(2) a:nth-child(2) {
+/* .navbar div a {
+    color: skyblue ;
+    text-decoration: none;
+    font-weight: bold;
+} */
+
+/* .navbar div:nth-child(2) a:nth-child(2) {
    color: black;
    background: white;
    padding: .2em 1.0em;
    border-radius: 5em;
    display: inline-block;
-} */
+}  */
 
