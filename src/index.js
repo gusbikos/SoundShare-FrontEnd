@@ -55,10 +55,12 @@ function fetchUsers() {
 // })
 // Hello world
 const playlistSongs = (songs) => {
-    console.log(songs)
+    console.log(songs.id)
+    
     const songDiv = document.querySelector('div#playlist-songs-detail')
     songDiv.dataset.id = songs.id
     // console.log(songDiv)
+
     const h4 = document.createElement('h4')
     h4.textContent = songs.title
     // console.log(h2)
@@ -79,6 +81,9 @@ const ul = document.querySelector('ul.list-playlist')
 
 ul.addEventListener('click', e => {
 
+    const songDiv = document.querySelector('#playlist-songs-detail')
+    songDiv.innerHTML = ''
+    
     if(e.target.matches('li')) {
         fetch(`http://localhost:3000/playlists/${e.target.dataset.id}`)
             .then(response => response.json())
