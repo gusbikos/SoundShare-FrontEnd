@@ -4,13 +4,13 @@
 // })
 
 // we need a function that show all playlists of a user 
-
 // we need a function that show all songs in a playlist
+
 const userDiv = document.querySelector('div#users-name')
 
 function user(userName) {
     // const userDiv = document.querySelector('div#users-name')
-    //console.log(playlistDiv)
+    // console.log(playlistDiv)
     const h2 = document.querySelector('h2')
     h2.textContent = userName.name
     h2.dataset.id = userName.id   
@@ -26,8 +26,6 @@ function user(userName) {
         li.dataset.id = list.id
         // console.log(li)
         ul.append(li)
-
-    
 })
 }
 
@@ -53,7 +51,7 @@ function fetchUsers() {
 //         })
 //     }                  
 // })
-// Hello world
+
 const playlistSongs = (songs) => {
     console.log(songs.id)
     
@@ -83,7 +81,7 @@ ul.addEventListener('click', e => {
 
     const songDiv = document.querySelector('#playlist-songs-detail')
     songDiv.innerHTML = ''
-    
+
     if(e.target.matches('li')) {
         fetch(`http://localhost:3000/playlists/${e.target.dataset.id}`)
             .then(response => response.json())
@@ -95,9 +93,37 @@ ul.addEventListener('click', e => {
     }
 })
 
-
-
 fetchUsers()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
