@@ -38,21 +38,6 @@ function fetchUsers() {
         })
 }
 
-//we are not click on the user anymore
-// userDiv.addEventListener('click', e => {
-    
-//     if (e.target.matches('li')) {
-//         console.log(e.target)
-//         fetch(`http://localhost:3000/users/${e.target.dataset.id}`)
-//         .then(response => response.json())
-//         .then(user => {
-//             user.playlists.forEach(playlist => {
-//                 userPlaylist(playlist)
-//             })       
-//         })
-//     }                  
-// })
-
 const playlistSongs = (songs) => {
     console.log(songs.id)
     
@@ -121,12 +106,20 @@ fetchUsers()
 
 
 
-
-
-
-
-
-
+//we are not click on the user anymore
+// userDiv.addEventListener('click', e => {
+    
+//     if (e.target.matches('li')) {
+//         console.log(e.target)
+//         fetch(`http://localhost:3000/users/${e.target.dataset.id}`)
+//         .then(response => response.json())
+//         .then(user => {
+//             user.playlists.forEach(playlist => {
+//                 userPlaylist(playlist)
+//             })       
+//         })
+//     }                  
+// })
 
 // function userPlaylist(playlistName) {
 //     const playlistDiv = document.querySelector('div#playlists')
