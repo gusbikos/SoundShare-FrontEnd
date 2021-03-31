@@ -1,4 +1,4 @@
-// dev 2
+// main branch
 // const loginForm = document.querySelector('form#login-from')
 // loginForm.addEventListener('submit', event => {
 //     event.preventDefault()
