@@ -54,7 +54,6 @@ function fetchUsers() {
 // })
 
 const playlistSongs = (songs) => {
-    console.log(songs.id)
     
     const songDiv = document.querySelector('div#playlist-songs-detail')
     songDiv.dataset.id = songs.id
