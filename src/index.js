@@ -41,7 +41,7 @@ function fetchUsers() {
 
 ////////////// SONG INFO //////////////
 const playlistSongs = (songs) => {
-    console.log(songs.id)
+    // console.log(songs.id)
     const songInfo = document.querySelector('div#song-info')
     const songDiv = document.createElement('div')
     songDiv.classList.add('playlist-songs-detail')
@@ -66,12 +66,12 @@ const playlistSongs = (songs) => {
     aTag.textContent = "View"
 
     const likes = document.createElement('p')
-    likes.textContent = `♥️ ${songs.likes}`
+    likes.textContent = `🔥 ${songs.likes}`
 
     const likesBtn = document.createElement('button')
     likesBtn.dataset.id = songs.id
     likesBtn.classList.add("like-btn")
-    likesBtn.textContent = "♥️"
+    likesBtn.textContent = "🔥"
 
     songDiv.append(h5, pArtist, p, aTag, likes, likesBtn)
     songInfo.append(songDiv)
@@ -92,25 +92,91 @@ ul.addEventListener('click', e => {
             .then(playlists => {
 // we had a id problem when we have "playlistSongs"(playlists.playlist_songs.forEach(song)
                     playlists.playlist_songs.forEach(song => {
-                        console.log(song.song)
+                        // console.log(song.song)
                         playlistSongs(song.song)
             })
         })  
     }
 })
 
-fetchUsers()
 
 ////////////// LIST OUT ALL THE SONGS //////////////
+const songsLibrary = (songLibrary) => {
+    // console.log(songLibrary)
+    // console.log(songLibrary.id)
+    const libraryDiv = document.createElement('div')
+    libraryDiv.classList.add('song')
+    // libraryDiv.dataset.id = songsLibrary.id
+    // console.log(libraryDiv)
+
+    const h5 = document.createElement('h5')
+    h5.textContent = `Title: ${songLibrary.title}`
+    // console.log(h5)
+    
+    const pArtist = document.createElement('p')
+    pArtist.classList.add('artist')
+    pArtist.textContent = `Artist: ${songLibrary.artist}`
+    // console.log(h3)
+    
+    const p = document.createElement('p')
+    p.classList.add('genre')
+    p.textContent = `Genre: ${songLibrary.genre}`
+    
+    const aTag = document.createElement('a')
+    aTag.href = songLibrary.link
+    aTag.textContent = "View"
+
+    // const likes = document.createElement('p')
+    // likes.textContent = `♥️ ${songLibrary.likes}`
+
+    const addBtn = document.createElement('button')
+    addBtn.dataset.id = songLibrary.id
+    addBtn.classList.add("btn")
+    addBtn.textContent = "Add to Playlist"
+    
+
+    libraryDiv.append(h5, pArtist, p, aTag, addBtn)
+    const songLibraryDiv = document.querySelector('div#song-library')
+    songLibraryDiv.append(libraryDiv)
+}
 
 
+////////////// FETCH ALL THE SONGS //////////////
 
-
-
-
+function fetchSong(){
+    fetch('http://localhost:3000/songs')
+    .then(response => response.json())
+    .then(songsArray => {
+    songsArray.forEach(song => {songsLibrary(song)})
+  })
+  }
 
 
 ////////////// ADD SONG TO PLAYLIST //////////////
+
+const songLibraryDiv = document.querySelector('div#song-library')
+// console.log(songLibrary)
+
+songLibraryDiv.addEventListener('click', event => {
+    // console.log('clicked')
+    if(event.target.matches('button')){
+        // console.log(event.target)
+        fetch(`http://localhost:3000/songs/${event.target.dataset.id}`)
+        .then(response => response.json())
+        .then(songToPlaylist => {
+            playlistSongs(songToPlaylist)
+        })
+    }
+})
+fetchUsers()
+fetchSong()
+
+
+
+
+
+
+
 
 
 
@@ -164,6 +230,21 @@ fetchUsers()
 
 
 
+
+// function playlistSongsLoad(){
+// fetch('http://localhost:3000/playlists')
+//             .then(response => response.json())
+//             .then(playlists => {console.log(playlists)
+// // we had a id problem when we have "playlistSongs"(playlists.playlist_songs.forEach(song)
+//                     playlists.playlist_songs.forEach(song => {
+//                         console.log(song.song)
+//                         firstPlaylistSongs(song.song[0])
+//             })
+//         })  
+//     }
+
+
+// playlistSongsLoad()
 
 
 
