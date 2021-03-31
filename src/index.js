@@ -15,7 +15,7 @@ function user(userName) {
     const h2 = document.querySelector('h2')
     h2.textContent = userName.name
     h2.dataset.id = userName.id   
-    console.log(h2)
+    // console.log(h2)
 
     const ul = document.querySelector('ul.list-playlist')
 
@@ -54,8 +54,10 @@ function fetchUsers() {
 // })
 
 const playlistSongs = (songs) => {
-    
-    const songDiv = document.querySelector('div#playlist-songs-detail')
+    console.log(songs.id)
+    const songInfo = document.querySelector('div#song-info')
+    const songDiv = document.createElement('div')
+    songDiv.classList.add('playlist-songs-detail')
     songDiv.dataset.id = songs.id
     // console.log(songDiv)
 
@@ -73,14 +75,15 @@ const playlistSongs = (songs) => {
     p.textContent = songs.genre
     
     songDiv.append(h4, pArtist, p)
+    songInfo.append(songDiv)
 }
 
 const ul = document.querySelector('ul.list-playlist')
 
 ul.addEventListener('click', e => {
 
-    const songDiv = document.querySelector('#playlist-songs-detail')
-    songDiv.innerHTML = ''
+    const songInfo = document.querySelector('#song-info')
+    songInfo.innerHTML = ''
 
     if(e.target.matches('li')) {
         fetch(`http://localhost:3000/playlists/${e.target.dataset.id}`)
