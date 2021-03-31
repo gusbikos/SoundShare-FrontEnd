@@ -66,6 +66,7 @@ const playlistSongs = (songs) => {
     aTag.textContent = "View"
 
     const likes = document.createElement('p')
+    likes.classList.add('likes-display')
     likes.textContent = `🔥 ${songs.likes}`
 
     const likesBtn = document.createElement('button')
@@ -151,6 +152,22 @@ function fetchSong(){
   })
   }
 
+////////////// INCREASE LIKE TO SONG //////////////
+
+const songInfo = document.querySelector('#song-info')
+
+songInfo.addEventListener('click', event => {
+    if (event.target.matches('button.like-btn')) {
+        // console.log(event.target)
+        const likesPTag = document.querySelector('p.likes-display')
+    }
+})
+
+
+
+
+
+
 
 ////////////// ADD SONG TO PLAYLIST //////////////
 
@@ -164,25 +181,22 @@ songLibraryDiv.addEventListener('click', event => {
         fetch(`http://localhost:3000/songs/${event.target.dataset.id}`)
         .then(response => response.json())
         .then(songToPlaylist => {
+            console.log(songToPlaylist)
+    // How do we do add this song to a specific playlist
             playlistSongs(songToPlaylist)
+            // console.log(songToPlaylist)
         })
     }
 })
+
+
+
+
+
+
+
 fetchUsers()
 fetchSong()
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
