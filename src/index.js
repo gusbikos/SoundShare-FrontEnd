@@ -6,7 +6,7 @@
 
 // we need a function that show all playlists of a user 
 // we need a function that show all songs in a playlist
-
+////////////// USER INFO //////////////
 const userDiv = document.querySelector('div#users-name')
 
 function user(userName) {
@@ -30,6 +30,7 @@ function user(userName) {
 })
 }
 
+////////////// FETCH FIRST USER //////////////
 function fetchUsers() {
     fetch('http://localhost:3000/users/1')
         .then(response => response.json())
@@ -38,21 +39,7 @@ function fetchUsers() {
         })
 }
 
-//we are not click on the user anymore
-// userDiv.addEventListener('click', e => {
-    
-//     if (e.target.matches('li')) {
-//         console.log(e.target)
-//         fetch(`http://localhost:3000/users/${e.target.dataset.id}`)
-//         .then(response => response.json())
-//         .then(user => {
-//             user.playlists.forEach(playlist => {
-//                 userPlaylist(playlist)
-//             })       
-//         })
-//     }                  
-// })
-
+////////////// SONG INFO //////////////
 const playlistSongs = (songs) => {
     console.log(songs.id)
     const songInfo = document.querySelector('div#song-info')
@@ -78,6 +65,8 @@ const playlistSongs = (songs) => {
     songInfo.append(songDiv)
 }
 
+
+////////////// GET THE PLAYLIST SONG WHEN WE CLICK THE PLAYLIST//////////////
 const ul = document.querySelector('ul.list-playlist')
 
 ul.addEventListener('click', e => {
@@ -89,15 +78,37 @@ ul.addEventListener('click', e => {
         fetch(`http://localhost:3000/playlists/${e.target.dataset.id}`)
             .then(response => response.json())
             .then(playlists => {
-                    playlistSongs(playlists.playlist_songs.forEach(song => {
+// we had a id problem when we have "playlistSongs"(playlists.playlist_songs.forEach(song)
+                    playlists.playlist_songs.forEach(song => {
+                        console.log(song.song)
                         playlistSongs(song.song)
-            }))
+            })
         })  
     }
 })
 
 fetchUsers()
 
+////////////// LIST OUT ALL THE SONGS //////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////// ADD SONG FORM //////////////
 
 
 
@@ -128,6 +139,38 @@ fetchUsers()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//we are not click on the user anymore
+// userDiv.addEventListener('click', e => {
+    
+//     if (e.target.matches('li')) {
+//         console.log(e.target)
+//         fetch(`http://localhost:3000/users/${e.target.dataset.id}`)
+//         .then(response => response.json())
+//         .then(user => {
+//             user.playlists.forEach(playlist => {
+//                 userPlaylist(playlist)
+//             })       
+//         })
+//     }                  
+// })
 
 
 // function userPlaylist(playlistName) {
