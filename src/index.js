@@ -7,7 +7,9 @@
 
 // we need a function that show all playlists of a user 
 // we need a function that show all songs in a playlist
+
 ////////////// USER INFO //////////////
+
 const userDiv = document.querySelector('div#users-name')
 const songInfo = document.querySelector('#song-info')
 
@@ -27,12 +29,14 @@ function user(userName) {
         const li = document.createElement('li')
         li.textContent = list.name
         li.dataset.id = list.id
+        
         // console.log(li)
         ul.append(li)
 })
 }
 
 ////////////// FETCH FIRST USER //////////////
+
 function fetchUsers() {
     fetch('http://localhost:3000/users/1')
         .then(response => response.json())
@@ -42,6 +46,7 @@ function fetchUsers() {
 }
 
 ////////////// SONG INFO //////////////
+
 const playlistSongs = (songs) => {
     // console.log(songs.id)
     const songInfo = document.querySelector('div#song-info')
@@ -70,14 +75,15 @@ const playlistSongs = (songs) => {
 
     const likes = document.createElement('p')
     likes.classList.add('likes-display')
-    likes.textContent = songs.likes
+    // Using emoji will break the code when we use `emoji ${songs.likes}`
+    likes.textContent = `${songs.likes} likes`
     likes.dataset.id = songs.id
     
     // console.log(songs.likes)
     const likesBtn = document.createElement('button')
     likesBtn.dataset.id = songs.id
     likesBtn.classList.add("like-btn")
-    likesBtn.textContent = "🔥"
+    likesBtn.textContent = "♥"
     // likesBtn.dataset.id = likes.dataset.id
 
     songDiv.append(h5, pArtist, p, aTag, likes, likesBtn)
@@ -175,7 +181,7 @@ document.addEventListener('click',e=>{
         })
             .then(response => response.json())
             .then(songObj => {
-                likeNumber.textContent = songObj.likes
+                likeNumber.textContent = `${songObj.likes} likes`
         })
     }
 })
@@ -200,16 +206,21 @@ songLibraryDiv.addEventListener('click', event => {
     }
 })
 
-fetchUsers()
-fetchSong()
 
 ////////////// CREATE NEW PLAYLIST //////////////
+
+
+
+////////////// DELETE THE WHOLE PLAYLIST ///////////
+
+
 
 ////////////// ADD SONG FORM //////////////
 
 
 
-
+fetchUsers()
+fetchSong()
 
 
 

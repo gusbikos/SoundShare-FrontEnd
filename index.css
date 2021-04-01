@@ -17,6 +17,30 @@
     color: blueviolet;
 }
 
+.like-btn {
+    color: rgb(255, 127, 80);
+    font-size: 1.5rem;
+    border: none;
+    background: none;
+    transition: color 300ms;
+    cursor: pointer;
+  }
+
+  .like-btn:hover {
+    color: rgb(241, 71, 19);
+  }
+  
+  .like-btn:active {
+    color: rgb(253, 159, 124);
+  }
+  
+  .like-btn:focus {
+    outline: none;
+  }
+
+  li {
+    list-style-type: none;
+  }
 /* .navbar div a {
     color: skyblue ;
     text-decoration: none;
