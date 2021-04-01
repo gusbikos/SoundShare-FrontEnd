@@ -8,6 +8,7 @@
 // we need a function that show all songs in a playlist
 ////////////// USER INFO //////////////
 const userDiv = document.querySelector('div#users-name')
+const songInfo = document.querySelector('#song-info')
 
 function user(userName) {
     // const userDiv = document.querySelector('div#users-name')
@@ -61,18 +62,22 @@ const playlistSongs = (songs) => {
     p.classList.add('genre')
     p.textContent = `Genre: ${songs.genre}`
     
+    
     const aTag = document.createElement('a')
     aTag.href = songs.link
     aTag.textContent = "View"
 
     const likes = document.createElement('p')
     likes.classList.add('likes-display')
-    likes.textContent = `🔥 ${songs.likes}`
-
+    likes.textContent = songs.likes
+    likes.dataset.id = songs.id
+    
+    // console.log(songs.likes)
     const likesBtn = document.createElement('button')
     likesBtn.dataset.id = songs.id
     likesBtn.classList.add("like-btn")
     likesBtn.textContent = "🔥"
+    // likesBtn.dataset.id = likes.dataset.id
 
     songDiv.append(h5, pArtist, p, aTag, likes, likesBtn)
     songInfo.append(songDiv)
@@ -149,25 +154,30 @@ function fetchSong(){
     .then(response => response.json())
     .then(songsArray => {
     songsArray.forEach(song => {songsLibrary(song)})
-  })
-  }
+})
+}
 
 ////////////// INCREASE LIKE TO SONG //////////////
-
-const songInfo = document.querySelector('#song-info')
-
-songInfo.addEventListener('click', event => {
-    if (event.target.matches('button.like-btn')) {
-        // console.log(event.target)
-        const likesPTag = document.querySelector('p.likes-display')
+////////////// FIND THE WHOLE DOCUMENT TO TARGET THE LIKES BUTTON/////////////
+document.addEventListener('click',e=>{
+    const likeNumber = e.target.parentElement.children[4]
+    const currentLike = parseInt(likeNumber.textContent)
+    const newLike = currentLike + 1
+    if(e.target.className === "like-btn"){
+        fetch(`http://localhost:3000/songs/${e.target.dataset.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({likes: newLike})
+        })
+            .then(response => response.json())
+            .then(songObj => {
+                likeNumber.textContent = songObj.likes
+        })
     }
 })
-
-
-
-
-
-
 
 ////////////// ADD SONG TO PLAYLIST //////////////
 
@@ -188,12 +198,6 @@ songLibraryDiv.addEventListener('click', event => {
         })
     }
 })
-
-
-
-
-
-
 
 fetchUsers()
 fetchSong()
