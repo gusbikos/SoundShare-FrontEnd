@@ -1,4 +1,6 @@
 // main branch
+// dev 2 
+////////////// LOGIN FORM //////////////
 // const loginForm = document.querySelector('form#login-from')
 // loginForm.addEventListener('submit', event => {
 //     event.preventDefault()
@@ -14,7 +16,7 @@ function user(userName) {
     // const userDiv = document.querySelector('div#users-name')
     // console.log(playlistDiv)
     const h2 = document.querySelector('h2')
-    h2.textContent = userName.name
+    h2.textContent = userName.name  
     h2.dataset.id = userName.id   
     // console.log(h2)
 
@@ -202,7 +204,7 @@ songLibraryDiv.addEventListener('click', event => {
 fetchUsers()
 fetchSong()
 
-
+////////////// CREATE NEW PLAYLIST //////////////
 
 ////////////// ADD SONG FORM //////////////
 
