@@ -15,22 +15,24 @@ const songInfo = document.querySelector('#song-info')
 
 function user(userName) {
     // const userDiv = document.querySelector('div#users-name')
-    // console.log(playlistDiv)
+
     const h2 = document.querySelector('h2')
     h2.textContent = userName.name
     h2.dataset.id = userName.id   
-    // console.log(h2)
 
     const ul = document.querySelector('ul.list-playlist')
 
     ul.innerHTML = ''
     userName.playlists.forEach(list => {
-        // console.log(list)
+
         const li = document.createElement('li')
         li.textContent = list.name
         li.dataset.id = list.id
-        
-        // console.log(li)
+        const deleteBtn = document.createElement('button')
+        deleteBtn.classList.add('delete-btn') 
+        deleteBtn.textContent = 'x'
+        deleteBtn.dataset.id = list.id
+        li.append(deleteBtn)
         ul.append(li)
 })
 }
@@ -209,13 +211,59 @@ songLibraryDiv.addEventListener('click', event => {
 
 ////////////// CREATE NEW PLAYLIST //////////////
 
+const playlistForm = document.querySelector('form#playlists-form')
+
+playlistForm.addEventListener('submit', e => {
+    e.preventDefault()
+    // console.log('clicked')
+    const playlist = e.target.name.value
+    // console.log(playlist)
+
+    fetch('http://localhost:3000/playlists', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({name: playlist,
+        user_id: 1})
+    })
+    .then(response => response.json())
+    .then(newPlaylist => {
+        const ul = document.querySelector('ul.list-playlist')
+        const li = document.createElement('li')
+        li.textContent = newPlaylist.name
+        li.dataset.id = newPlaylist.id
+        const deleteBtn = document.createElement('button')
+        deleteBtn.classList.add('delete-btn') 
+        deleteBtn.textContent = 'x'
+        deleteBtn.dataset.id = list.id
+        li.append(deleteBtn)  
+        ul.append(li)
+    })
+})
+
+////////////// DELETE THE PLAYLIST ///////////
 
 
-////////////// DELETE THE WHOLE PLAYLIST ///////////
+const deleteBtn = document.querySelector('button.delete-btn')
 
+document.addEventListener('click', e => {
+    e.preventDefault()
+    
+    const li = e.target.closest('li')
 
+    if(e.target.matches('button.delete-btn')){
+        // console.log('clicked')
+        fetch(`http://localhost:3000/playlists/${li.dataset.id}`, {
+            method: "DELETE"
+        })
+    li.remove()
+    }
+})
 
 ////////////// ADD SONG FORM //////////////
+
 
 
 
