@@ -1,4 +1,5 @@
-// dev 2
+// dev 2 
+////////////// LOGIN FORM //////////////
 // const loginForm = document.querySelector('form#login-from')
 // loginForm.addEventListener('submit', event => {
 //     event.preventDefault()
@@ -202,7 +203,7 @@ songLibraryDiv.addEventListener('click', event => {
 fetchUsers()
 fetchSong()
 
-
+////////////// CREATE NEW PLAYLIST //////////////
 
 ////////////// ADD SONG FORM //////////////
 
