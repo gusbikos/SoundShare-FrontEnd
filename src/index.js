@@ -5,9 +5,6 @@
 //     event.preventDefault()
 // })
 
-// we need a function that show all playlists of a user 
-// we need a function that show all songs in a playlist
-
 ////////////// USER INFO //////////////
 
 const userDiv = document.querySelector('div#users-name')
@@ -81,13 +78,12 @@ const playlistSongs = (songs) => {
     likes.textContent = `${songs.likes} likes`
     likes.dataset.id = songs.id
     
-    // console.log(songs.likes)
     const likesBtn = document.createElement('button')
     likesBtn.dataset.id = songs.id
     likesBtn.classList.add("like-btn")
     likesBtn.textContent = "♥"
     // likesBtn.dataset.id = likes.dataset.id
-
+    
     songDiv.append(h5, pArtist, p, aTag, likes, likesBtn)
     songInfo.append(songDiv)
 }
@@ -105,9 +101,8 @@ ul.addEventListener('click', e => {
         fetch(`http://localhost:3000/playlists/${e.target.dataset.id}`)
             .then(response => response.json())
             .then(playlists => {
-// we had a id problem when we have "playlistSongs"(playlists.playlist_songs.forEach(song)
                     playlists.playlist_songs.forEach(song => {
-                        // console.log(song.song)
+
                         playlistSongs(song.song)
             })
         })  
@@ -116,13 +111,12 @@ ul.addEventListener('click', e => {
 
 
 ////////////// LIST OUT ALL THE SONGS //////////////
+
 const songsLibrary = (songLibrary) => {
-    // console.log(songLibrary)
-    // console.log(songLibrary.id)
+
     const libraryDiv = document.createElement('div')
     libraryDiv.classList.add('song')
     // libraryDiv.dataset.id = songsLibrary.id
-    // console.log(libraryDiv)
 
     const h5 = document.createElement('h5')
     h5.textContent = `Title: ${songLibrary.title}`
@@ -169,10 +163,14 @@ function fetchSong(){
 ////////////// INCREASE LIKE TO SONG //////////////
 ////////////// FIND THE WHOLE DOCUMENT TO TARGET THE LIKES BUTTON/////////////
 document.addEventListener('click',e=>{
-    const likeNumber = e.target.parentElement.children[4]
-    const currentLike = parseInt(likeNumber.textContent)
-    const newLike = currentLike + 1
-    if(e.target.className === "like-btn"){
+    // debugger
+
+    if(e.target.matches("button.like-btn")){
+
+        const likeNumber = e.target.parentElement.children[4]
+        const currentLike = parseInt(likeNumber.textContent)
+        const newLike = currentLike + 1
+        
         fetch(`http://localhost:3000/songs/${e.target.dataset.id}`, {
             method: 'PATCH',
             headers: {
@@ -263,6 +261,8 @@ document.addEventListener('click', e => {
 })
 
 ////////////// ADD SONG FORM //////////////
+
+
 
 
 
