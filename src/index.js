@@ -11,7 +11,6 @@ const userDiv = document.querySelector('div#users-name')
 const songInfo = document.querySelector('#song-info')
 
 function user(userName) {
-    // const userDiv = document.querySelector('div#users-name')
 
     const h2 = document.querySelector('h2')
     h2.textContent = userName.name
