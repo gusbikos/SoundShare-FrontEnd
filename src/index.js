@@ -5,35 +5,43 @@
 // loginForm.addEventListener('submit', event => {
 //     event.preventDefault()
 // })
+<<<<<<< HEAD
 // HELLO WORLD
 // we need a function that show all playlists of a user 
 // we need a function that show all songs in a playlist
+=======
+
+>>>>>>> dev-3
 ////////////// USER INFO //////////////
+
 const userDiv = document.querySelector('div#users-name')
 const songInfo = document.querySelector('#song-info')
 
 function user(userName) {
-    // const userDiv = document.querySelector('div#users-name')
-    // console.log(playlistDiv)
+
     const h2 = document.querySelector('h2')
     h2.textContent = userName.name  
     h2.dataset.id = userName.id   
-    // console.log(h2)
 
     const ul = document.querySelector('ul.list-playlist')
 
     ul.innerHTML = ''
     userName.playlists.forEach(list => {
-        // console.log(list)
+
         const li = document.createElement('li')
         li.textContent = list.name
         li.dataset.id = list.id
-        // console.log(li)
+        const deleteBtn = document.createElement('button')
+        deleteBtn.classList.add('delete-btn') 
+        deleteBtn.textContent = 'x'
+        deleteBtn.dataset.id = list.id
+        li.append(deleteBtn)
         ul.append(li)
 })
 }
 
 ////////////// FETCH FIRST USER //////////////
+
 function fetchUsers() {
     fetch('http://localhost:3000/users/1')
         .then(response => response.json())
@@ -43,6 +51,7 @@ function fetchUsers() {
 }
 
 ////////////// SONG INFO //////////////
+
 const playlistSongs = (songs) => {
     // console.log(songs.id)
     const songInfo = document.querySelector('div#song-info')
@@ -71,16 +80,16 @@ const playlistSongs = (songs) => {
 
     const likes = document.createElement('p')
     likes.classList.add('likes-display')
-    likes.textContent = songs.likes
+    // Using emoji will break the code when we use `emoji ${songs.likes}`
+    likes.textContent = `${songs.likes} likes`
     likes.dataset.id = songs.id
     
-    // console.log(songs.likes)
     const likesBtn = document.createElement('button')
     likesBtn.dataset.id = songs.id
     likesBtn.classList.add("like-btn")
-    likesBtn.textContent = "🔥"
+    likesBtn.textContent = "♥"
     // likesBtn.dataset.id = likes.dataset.id
-
+    
     songDiv.append(h5, pArtist, p, aTag, likes, likesBtn)
     songInfo.append(songDiv)
 }
@@ -98,9 +107,8 @@ ul.addEventListener('click', e => {
         fetch(`http://localhost:3000/playlists/${e.target.dataset.id}`)
             .then(response => response.json())
             .then(playlists => {
-// we had a id problem when we have "playlistSongs"(playlists.playlist_songs.forEach(song)
                     playlists.playlist_songs.forEach(song => {
-                        // console.log(song.song)
+
                         playlistSongs(song.song)
             })
         })  
@@ -109,13 +117,12 @@ ul.addEventListener('click', e => {
 
 
 ////////////// LIST OUT ALL THE SONGS //////////////
+
 const songsLibrary = (songLibrary) => {
-    // console.log(songLibrary)
-    // console.log(songLibrary.id)
+
     const libraryDiv = document.createElement('div')
     libraryDiv.classList.add('song')
     // libraryDiv.dataset.id = songsLibrary.id
-    // console.log(libraryDiv)
 
     const h5 = document.createElement('h5')
     h5.textContent = `Title: ${songLibrary.title}`
@@ -162,10 +169,14 @@ function fetchSong(){
 ////////////// INCREASE LIKE TO SONG //////////////
 ////////////// FIND THE WHOLE DOCUMENT TO TARGET THE LIKES BUTTON/////////////
 document.addEventListener('click',e=>{
-    const likeNumber = e.target.parentElement.children[4]
-    const currentLike = parseInt(likeNumber.textContent)
-    const newLike = currentLike + 1
-    if(e.target.className === "like-btn"){
+    // debugger
+
+    if(e.target.matches("button.like-btn")){
+
+        const likeNumber = e.target.parentElement.children[4]
+        const currentLike = parseInt(likeNumber.textContent)
+        const newLike = currentLike + 1
+        
         fetch(`http://localhost:3000/songs/${e.target.dataset.id}`, {
             method: 'PATCH',
             headers: {
@@ -176,7 +187,7 @@ document.addEventListener('click',e=>{
         })
             .then(response => response.json())
             .then(songObj => {
-                likeNumber.textContent = songObj.likes
+                likeNumber.textContent = `${songObj.likes} likes`
         })
     }
 })
@@ -201,10 +212,59 @@ songLibraryDiv.addEventListener('click', event => {
     }
 })
 
-fetchUsers()
-fetchSong()
 
 ////////////// CREATE NEW PLAYLIST //////////////
+
+const playlistForm = document.querySelector('form#playlists-form')
+
+playlistForm.addEventListener('submit', e => {
+    e.preventDefault()
+    // console.log('clicked')
+    const playlist = e.target.name.value
+    // console.log(playlist)
+
+    fetch('http://localhost:3000/playlists', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({name: playlist,
+        user_id: 1})
+    })
+    .then(response => response.json())
+    .then(newPlaylist => {
+        const ul = document.querySelector('ul.list-playlist')
+        const li = document.createElement('li')
+        li.textContent = newPlaylist.name
+        li.dataset.id = newPlaylist.id
+        const deleteBtn = document.createElement('button')
+        deleteBtn.classList.add('delete-btn') 
+        deleteBtn.textContent = 'x'
+        deleteBtn.dataset.id = list.id
+        li.append(deleteBtn)  
+        ul.append(li)
+    })
+})
+
+////////////// DELETE THE PLAYLIST ///////////
+
+
+const deleteBtn = document.querySelector('button.delete-btn')
+
+document.addEventListener('click', e => {
+    e.preventDefault()
+    
+    const li = e.target.closest('li')
+
+    if(e.target.matches('button.delete-btn')){
+        // console.log('clicked')
+        fetch(`http://localhost:3000/playlists/${li.dataset.id}`, {
+            method: "DELETE"
+        })
+    li.remove()
+    }
+})
 
 ////////////// ADD SONG FORM //////////////
 
@@ -214,6 +274,11 @@ fetchSong()
 
 
 // HELLO WORLD
+fetchUsers()
+fetchSong()
+
+
+
 
 
 

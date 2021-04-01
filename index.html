@@ -1,8 +1,12 @@
 <!DOCTYPE html>
+<!--HELLO WORLD-->
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
     <title>SoundShare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/v4-shims.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
     <script defer src="src/index.js"></script>
     <link rel="stylesheet" href="index.css" />
@@ -19,15 +23,16 @@
       <!---login-form--->
       <form id="login-from">
         <h4>Login</h4>
-        <input type="text" name="name" value="" placeholder="name" required></input><br>
+        <input type="text" name="name" value="" placeholder="username" required></input><br>
         <button type="submit" name="login-button">Login</button>
-      </form>
+      </form><br>
 
     <div id="users-name">
       <h2>username goes here</h2>
 
      <!---SHOW THE PLAYLIST THIS USER HAS--->
       <div id="playlists">
+        <h5>Playlists:</h5>
            <ul class="list-playlist">
             
            </ul>
@@ -38,14 +43,36 @@
         
       
       </div>
-      
-      
-        <div class="library">
-          <h2>Songs Library</h2>
-          <div id="song-library">
-          </div>
-        </div>
 
-     
+      <!-- New Playlist Form -->
+      <form id="playlists-form">
+        <h5>Add New Playlist</h5>
+        <input type="text" name="name" placeholder="Enter New Playlist"/>
+        <input type="submit" value="Add Playlist"/>
+      </form><br>
+      
+      <div class="library">
+          <h4>Songs Library</h4>
+          <div id="song-library">
+        </div>
+      </div>
+
+      <form id="new-song-form">
+        <h6>New Song</h6>
+        <label>Song Title: </label>
+        <input type="text" placeholder="Song's Title" name='title'>
+
+        <label>Artist: </label>
+        <input type="text" placeholder="Song's Artist" name='artist'>
+
+        <label>Genre: </label>
+        <textarea placeholder="Song's Genre" name='genre'></textarea>
+
+        <label>Video Link: </label>
+        <input type="text" placeholder="Video Link" name='link'>
+
+        <input type="submit" value="Add New Song" />
+    </form>
+
    </body>
 </html>
