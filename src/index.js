@@ -5,13 +5,10 @@
 // loginForm.addEventListener('submit', event => {
 //     event.preventDefault()
 // })
-<<<<<<< HEAD
 // HELLO WORLD
 // we need a function that show all playlists of a user 
 // we need a function that show all songs in a playlist
-=======
 
->>>>>>> dev-3
 ////////////// USER INFO //////////////
 
 const userDiv = document.querySelector('div#users-name')
