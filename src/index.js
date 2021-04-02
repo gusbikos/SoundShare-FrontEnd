@@ -194,12 +194,22 @@ songLibraryDiv.addEventListener('click', event => {
     // console.log('clicked')
     if(event.target.matches('button')){
         // console.log(event.target)
-        fetch(`http://localhost:3000/songs/${event.target.dataset.id}`)
+        fetch(`http://localhost:3000/playlist_songs`, {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json' 
+            },
+            body: JSON.stringify({
+                song_id: event.target.dataset.id,
+                playlist_id: 1
+            })
+        })
         .then(response => response.json())
         .then(songToPlaylist => {
-            console.log(songToPlaylist)
+                console.log("songToPlaylist", songToPlaylist)
     // How do we do add this song to a specific playlist
-            playlistSongs(songToPlaylist)
+            // playlistSongs(songToPlaylist)
             // console.log(songToPlaylist)
         })
     }
@@ -212,7 +222,7 @@ const playlistForm = document.querySelector('form#playlists-form')
 
 playlistForm.addEventListener('submit', e => {
     e.preventDefault()
-    // console.log('clicked')
+    console.log('clicked')
     const playlist = e.target.name.value
     // console.log(playlist)
 
@@ -261,9 +271,34 @@ document.addEventListener('click', e => {
 
 ////////////// ADD SONG FORM //////////////
 
+// const addSongForm = document.querySelector('form#new-song-form')
 
+// addSongForm.addEventListener('submit', e => {
+//         e.preventDefault()
+//     console.log("clicked")
+//         const title = e.target.title.value
+//         const artist = e.target.artist.value
+//         const genre = e.target.genre.value
+//         const link = e.target.link.value
 
-
+//         fetch('http://localhost:3000/songs', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Accept': 'application/json'
+//             },
+//             body: JSON.stringify({
+//                 title, 
+//                 artist,
+//                 genre,
+//                 link
+//             })
+//             .then(response => response.json())
+//             .then(newSong => {
+//                 // console.log(newSong)
+//         })
+//     })
+// })
 
 
 fetchUsers()
