@@ -26,7 +26,8 @@ function user(userName) {
         li.dataset.id = list.id
         const deleteBtn = document.createElement('button')
         deleteBtn.classList.add('delete-btn') 
-        deleteBtn.textContent = 'x'
+        deleteBtn.innerHTML = `<i class="fas fa-trash-alt"></i>`
+        // deleteBtn.textContent = 'x'
         deleteBtn.dataset.id = list.id
         li.append(deleteBtn)
         ul.append(li)
@@ -227,7 +228,8 @@ addPlayButton.addEventListener('click', e => {
         li.dataset.id = newPlaylist.id
         const deleteBtn = document.createElement('button')
         deleteBtn.classList.add('delete-btn') 
-        deleteBtn.textContent = 'x'
+        deleteBtn.innerHTML = `<i class="fas fa-trash-alt"></i>`
+        // deleteBtn.textContent = 'x'
         deleteBtn.dataset.id = newPlaylist.id
         li.append(deleteBtn)  
         ul.append(li)

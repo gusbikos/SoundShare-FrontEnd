@@ -60,6 +60,27 @@
     box-shadow: 0px 1px 5px #555;
     background-color:azure;
   }
+
+  .delete-btn {
+    color: rgb(113, 111, 111);
+    font-size: 1rem;
+    border: none;
+    background: none;
+    transition: color 300ms;
+    cursor: pointer;
+  }
+
+  .delete-btn:hover {
+    color: rgb(0, 0, 0);
+  }
+
+  .delete-btn:active {
+    color: rgb(89, 88, 88);
+  }
+  
+  .delete-btn:focus {
+    outline: none;
+  }
   
 /* .navbar div a {
     color: skyblue ;
