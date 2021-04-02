@@ -125,7 +125,8 @@ const renderSongs = (songLibrary) => {
     
     const aTag = document.createElement('a')
     aTag.href = songLibrary.link
-    aTag.textContent = "View"
+    aTag.textContent = songLibrary.link
+    aTag.innerHTML = `<i class="fab fa-youtube"></i>`
 
     const addBtn = document.createElement('button')
     addBtn.dataset.id = songLibrary.id
