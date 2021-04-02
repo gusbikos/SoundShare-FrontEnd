@@ -46,26 +46,22 @@ function fetchUsers() {
 ////////////// SONG INFO //////////////
 
 const playlistSongs = (songs) => {
-    // console.log(songs.id)
+    
     const songInfo = document.querySelector('div#song-info')
     const songDiv = document.createElement('div')
     songDiv.classList.add('playlist-songs-detail')
     songDiv.dataset.id = songs.id
-    // console.log(songDiv)
 
     const h5 = document.createElement('h5')
     h5.textContent = `Title: ${songs.title}`
-    // console.log(h2)
     
     const pArtist = document.createElement('p')
     pArtist.classList.add('artist')
     pArtist.textContent = `Artist: ${songs.artist}`
-    // console.log(h3)
     
     const p = document.createElement('p')
     p.classList.add('genre')
     p.textContent = `Genre: ${songs.genre}`
-    
     
     const aTag = document.createElement('a')
     aTag.href = songs.link
@@ -81,7 +77,6 @@ const playlistSongs = (songs) => {
     likesBtn.dataset.id = songs.id
     likesBtn.classList.add("like-btn")
     likesBtn.textContent = "♥"
-    // likesBtn.dataset.id = likes.dataset.id
     
     songDiv.append(h5, pArtist, p, aTag, likes, likesBtn)
     songInfo.append(songDiv)
@@ -108,7 +103,6 @@ ul.addEventListener('click', e => {
     }
 })
 
-
 ////////////// LIST OUT ALL THE SONGS //////////////
 
 const renderSongs = (songLibrary) => {
@@ -119,12 +113,10 @@ const renderSongs = (songLibrary) => {
 
     const h5 = document.createElement('h5')
     h5.textContent = `Title: ${songLibrary.title}`
-    // console.log(h5)
     
     const pArtist = document.createElement('p')
     pArtist.classList.add('artist')
     pArtist.textContent = `Artist: ${songLibrary.artist}`
-    // console.log(h3)
     
     const p = document.createElement('p')
     p.classList.add('genre')
@@ -134,15 +126,11 @@ const renderSongs = (songLibrary) => {
     aTag.href = songLibrary.link
     aTag.textContent = "View"
 
-    // const likes = document.createElement('p')
-    // likes.textContent = `♥️ ${songLibrary.likes}`
-
     const addBtn = document.createElement('button')
     addBtn.dataset.id = songLibrary.id
     addBtn.classList.add("btn")
     addBtn.textContent = "Add to Playlist"
     
-
     libraryDiv.append(h5, pArtist, p, aTag, addBtn)
     const songLibraryDiv = document.querySelector('div#song-library')
     songLibraryDiv.append(libraryDiv)
@@ -187,12 +175,11 @@ document.addEventListener('click', e =>{
 ////////////// ADD SONG TO PLAYLIST //////////////
 
 const songLibraryDiv = document.querySelector('div#song-library')
-// console.log(songLibrary)
 
 songLibraryDiv.addEventListener('click', event => {
-    // console.log('clicked')
+    
     if(event.target.matches('button')){
-        // console.log(event.target)
+       
         fetch(`http://localhost:3000/playlist_songs`, {
             method: "POST",
             headers: {
@@ -209,7 +196,7 @@ songLibraryDiv.addEventListener('click', event => {
                 console.log("songToPlaylist", songToPlaylist)
     // How do we do add this song to a specific playlist
             // playlistSongs(songToPlaylist)
-            // console.log(songToPlaylist)
+            
         })
     }
 })
@@ -218,11 +205,11 @@ songLibraryDiv.addEventListener('click', event => {
 ////////////// CREATE NEW PLAYLIST //////////////
 
 const addPlayButton = document.querySelector('#submit-btn')
-console.log(addPlayButton)
+
 addPlayButton.addEventListener('click', e => {
     e.preventDefault()    
     const playListName = e.target.parentElement.children[1].value
-    console.log(playListName)
+    
     fetch('http://localhost:3000/playlists', {
         method: 'POST',
         headers: {
@@ -233,7 +220,7 @@ addPlayButton.addEventListener('click', e => {
     })
     .then(res => res.json())
     .then(newPlaylist => {
-        console.log(newPlaylist)
+        
         const ul = document.querySelector('ul.list-playlist')
         const li = document.createElement('li')
         li.textContent = playListName
@@ -258,7 +245,7 @@ document.addEventListener('click', e => {
     const li = e.target.closest('li')
 
     if(e.target.matches('button.delete-btn')){
-        // console.log('clicked')
+        
         fetch(`http://localhost:3000/playlists/${li.dataset.id}`, {
             method: "DELETE"
         })
@@ -268,10 +255,8 @@ document.addEventListener('click', e => {
 
 ////////////// ADD SONG FORM //////////////
 
-
-
 const newSongButton = document.querySelector('#newsong-btn')
-console.log(newSongButton.parentElement.children)
+
 newSongButton.addEventListener("click", e => {
         e.preventDefault()
         /* selecting the new song form*/
@@ -283,7 +268,6 @@ newSongButton.addEventListener("click", e => {
         const genre = formData.genre.value
         const link = formData.link.value
 
-        console.log(title, artist)
         const option = {
             method: 'POST',
             headers: {
@@ -293,7 +277,7 @@ newSongButton.addEventListener("click", e => {
             body: JSON.stringify({title: title, artist: artist, genre: genre, link: link})
         }
     
-        fetch('http://localhost:3000/songs',option)
+        fetch('http://localhost:3000/songs', option)
         .then(res => res.json())
         .then(newSong => {
             renderSongs(newSong)
@@ -302,6 +286,66 @@ newSongButton.addEventListener("click", e => {
 
 fetchSong()
 fetchUsers()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
