@@ -115,7 +115,7 @@ ul.addEventListener('click', e => {
 
 ////////////// LIST OUT ALL THE SONGS //////////////
 
-const songsLibrary = (songLibrary) => {
+const renderSongs = (songLibrary) => {
 
     const libraryDiv = document.createElement('div')
     libraryDiv.classList.add('song')
@@ -159,14 +159,13 @@ function fetchSong(){
     fetch('http://localhost:3000/songs')
     .then(response => response.json())
     .then(songsArray => {
-    songsArray.forEach(song => {songsLibrary(song)})
+    songsArray.forEach(song => {renderSongs(song)})
 })
 }
 
 ////////////// INCREASE LIKE TO SONG //////////////
 ////////////// FIND THE WHOLE DOCUMENT TO TARGET THE LIKES BUTTON/////////////
-document.addEventListener('click',e=>{
-    // debugger
+document.addEventListener('click', e =>{
 
     if(e.target.matches("button.like-btn")){
 
@@ -198,12 +197,22 @@ songLibraryDiv.addEventListener('click', event => {
     // console.log('clicked')
     if(event.target.matches('button')){
         // console.log(event.target)
-        fetch(`http://localhost:3000/songs/${event.target.dataset.id}`)
+        fetch(`http://localhost:3000/playlist_songs`, {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json' 
+            },
+            body: JSON.stringify({
+                song_id: event.target.dataset.id,
+                playlist_id: 1
+            })
+        })
         .then(response => response.json())
         .then(songToPlaylist => {
-            console.log(songToPlaylist)
+                console.log("songToPlaylist", songToPlaylist)
     // How do we do add this song to a specific playlist
-            playlistSongs(songToPlaylist)
+            // playlistSongs(songToPlaylist)
             // console.log(songToPlaylist)
         })
     }
@@ -212,33 +221,31 @@ songLibraryDiv.addEventListener('click', event => {
 
 ////////////// CREATE NEW PLAYLIST //////////////
 
-const playlistForm = document.querySelector('form#playlists-form')
-
-playlistForm.addEventListener('submit', e => {
-    e.preventDefault()
-    // console.log('clicked')
-    const playlist = e.target.name.value
-    // console.log(playlist)
-
+const addPlayButton = document.querySelector('#submit-btn')
+console.log(addPlayButton)
+addPlayButton.addEventListener('click', e => {
+    e.preventDefault()    
+    const playListName = e.target.parentElement.children[1].value
+    console.log(playListName)
     fetch('http://localhost:3000/playlists', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
-        body: JSON.stringify({name: playlist,
-        user_id: 1})
+        body: JSON.stringify({name: playListName, user_id: 1})
     })
-    .then(response => response.json())
+    .then(res => res.json())
     .then(newPlaylist => {
+        console.log(newPlaylist)
         const ul = document.querySelector('ul.list-playlist')
         const li = document.createElement('li')
-        li.textContent = newPlaylist.name
+        li.textContent = playListName
         li.dataset.id = newPlaylist.id
         const deleteBtn = document.createElement('button')
         deleteBtn.classList.add('delete-btn') 
         deleteBtn.textContent = 'x'
-        deleteBtn.dataset.id = list.id
+        deleteBtn.dataset.id = newPlaylist.id
         li.append(deleteBtn)  
         ul.append(li)
     })
@@ -267,12 +274,41 @@ document.addEventListener('click', e => {
 
 
 
+const newSongButton = document.querySelector('#newsong-btn')
+console.log(newSongButton.parentElement.children)
+newSongButton.addEventListener("click", e => {
+        e.preventDefault()
+        /* selecting the new song form*/
+        const form = e.target.parentElement
+        const formData = form.children
 
+        const title = formData.title.value
+        const artist = formData.artist.value
+        const genre = formData.genre.value
+        const link = formData.link.value
 
+        console.log(title, artist)
+        const option = {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'accept': 'application/json'
+            },
+            body: JSON.stringify({title: title, artist: artist, genre: genre, link: link})
+        }
+    
+        fetch('http://localhost:3000/songs',option)
+        .then(res => res.json())
+        .then(newSong => {
+            renderSongs(newSong)
+        })  
+})
 
 // HELLO WORLD
 fetchUsers()
 fetchSong()
+
+
 
 
 
