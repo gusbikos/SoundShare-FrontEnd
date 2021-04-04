@@ -30,7 +30,8 @@ function user(userName) {
         li.dataset.id = list.id
         const deleteBtn = document.createElement('button')
         deleteBtn.classList.add('delete-btn') 
-        deleteBtn.textContent = 'x'
+        deleteBtn.innerHTML = `<i class="fas fa-trash-alt"></i>`
+        // deleteBtn.textContent = 'x'
         deleteBtn.dataset.id = list.id
         li.append(deleteBtn)
         ul.append(li)
@@ -126,16 +127,23 @@ const renderSongs = (songLibrary) => {
     p.classList.add('genre')
     p.textContent = `Genre: ${songLibrary.genre}`
     
-    const aTag = document.createElement('a')
-    aTag.href = songLibrary.link
-    aTag.textContent = "View"
+    let songLink = songLibrary.link
+    const videoBody = document.createElement('a') 
+
+    videoBody.href = songLink
+    videoBody.target = "_blank"
+    videoBody.textContent="video"
+    videoBody.innerHTML = `
+            <img src='https://img.youtube.com/vi/${songLink.split('?v=')[1]}/0.jpg' />
+        `
+    console.log(songLibrary.link.split("?v=")[1])
 
     const addBtn = document.createElement('button')
     addBtn.dataset.id = songLibrary.id
     addBtn.classList.add("btn")
     addBtn.textContent = "Add to Playlist"
     
-    libraryDiv.append(h5, pArtist, p, aTag, addBtn)
+    libraryDiv.append(h5, pArtist, p, videoBody, addBtn)
     const songLibraryDiv = document.querySelector('div#song-library')
     songLibraryDiv.append(libraryDiv)
 }
@@ -231,7 +239,8 @@ addPlayButton.addEventListener('click', e => {
         li.dataset.id = newPlaylist.id
         const deleteBtn = document.createElement('button')
         deleteBtn.classList.add('delete-btn') 
-        deleteBtn.textContent = 'x'
+        deleteBtn.innerHTML = `<i class="fas fa-trash-alt"></i>`
+        // deleteBtn.textContent = 'x'
         deleteBtn.dataset.id = newPlaylist.id
         li.append(deleteBtn)  
         ul.append(li)

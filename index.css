@@ -1,3 +1,8 @@
+ 
+body {
+  background-color: #e4fbff;
+} 
+
 .navbars {
     background: paleturquoise;
     height: 50px;
@@ -49,18 +54,56 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 5fr));
     grid-gap: 1rem;
     text-align: center; 
-  }
+  } */
 
   .song {
     display: grid;
-    /* max-height: 400px; */
+    max-height: 400px;
   }
 
   .song {
     box-shadow: 0px 1px 5px #555;
-    background-color:azure;
+    background-color:#b8b5ff;
+  }
+
+  .song div a{
+    height: 300px !important;
+    width: 100% !important;
+    z-index: 10000;
+    position: relative;
+  }
+
+  .song a img{
+    width: 100%;
+    border-radius: 10px;
+    margin: 10px 0;
+  }
+
+  .delete-btn {
+    color: rgb(113, 111, 111);
+    font-size: 1rem;
+    border: none;
+    background: none;
+    transition: color 300ms;
+    cursor: pointer;
+  }
+
+  .delete-btn:hover {
+    color: rgb(0, 0, 0);
+  }
+
+  .delete-btn:active {
+    color: rgb(89, 88, 88);
   }
   
+  .delete-btn:focus {
+    outline: none;
+  }
+  
+ .library h4 {
+   text-align: center;
+   justify-content: center;
+ }
 /* .navbar div a {
     color: skyblue ;
     text-decoration: none;
