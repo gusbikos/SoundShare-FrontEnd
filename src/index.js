@@ -123,17 +123,23 @@ const renderSongs = (songLibrary) => {
     p.classList.add('genre')
     p.textContent = `Genre: ${songLibrary.genre}`
     
-    const aTag = document.createElement('a')
-    aTag.href = songLibrary.link
-    aTag.textContent = songLibrary.link
-    aTag.innerHTML = `<i class="fab fa-youtube"></i>`
+    let songLink = songLibrary.link
+    const videoBody = document.createElement('a') 
+
+    videoBody.href = songLink
+    videoBody.target = "_blank"
+    videoBody.textContent="video"
+    videoBody.innerHTML = `
+            <img src='https://img.youtube.com/vi/${songLink.split('?v=')[1]}/0.jpg' />
+        `
+    console.log(songLibrary.link.split("?v=")[1])
 
     const addBtn = document.createElement('button')
     addBtn.dataset.id = songLibrary.id
     addBtn.classList.add("btn")
     addBtn.textContent = "Add to Playlist"
     
-    libraryDiv.append(h5, pArtist, p, aTag, addBtn)
+    libraryDiv.append(h5, pArtist, p, videoBody, addBtn)
     const songLibraryDiv = document.querySelector('div#song-library')
     songLibraryDiv.append(libraryDiv)
 }
